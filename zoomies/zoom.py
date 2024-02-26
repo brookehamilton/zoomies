@@ -6,7 +6,7 @@ license)
 
 from diffusers import StableDiffusionInpaintPipeline, EulerAncestralDiscreteScheduler
 from PIL import Image
-from utils import write_video, shrink_and_paste_on_blank
+from zoomies.utils import write_video, shrink_and_paste_on_blank
 import imageio
 import numpy as np
 import torch
