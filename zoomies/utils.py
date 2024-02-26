@@ -4,6 +4,9 @@ Utility functions
 These were copied from the original notebook by unknown author.
 """
 
+from PIL import Image
+import imageio
+import numpy as np
 
 def image_grid(imgs, rows, cols):
     """
