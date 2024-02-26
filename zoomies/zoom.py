@@ -13,24 +13,19 @@ import torch
 import time
 
 def zoom(
-    prompts_array,
-    negative_prompt='frames, borderline, text, garish, simple, empty, charachter, duplicate, error, out of frame, watermark, low quality, ugly, deformed, blur',
+    prompts,
+    negative_prompt='frames, borderline, text, garish, simple, empty, character, duplicate, error, out of frame, watermark, low quality, ugly, deformed, blur',
     model_id='stabilityai/stable-diffusion-2-inpainting',
     num_outpainting_steps=12,
     guidance_scale=7,
     num_inference_steps=50,
     custom_init_image=None
 ):
-    prompts = {}
-    for i in range(len(prompts_array)):
-        prompts[i] = prompts_array[i]
-    # for x in prompts_array:
-    #     try:
-    #         key = int(x[0])
-    #         value = str(x[1])
-    #         prompts[key] = value
-    #     except ValueError:
-    #         pass
+    """Create an infinite zoom video.
+
+    'prompts' is a dictionary with keys as the frame number (integer) and values as the
+    prompt for that frame.  e.g.: {0: 'bears', 12: 'squares', 24: 'chairs'}
+    """
 
     pipe = StableDiffusionInpaintPipeline.from_pretrained(
         model_id,
@@ -129,6 +124,6 @@ def zoom(
     start_frame_dupe_amount = 15
     last_frame_dupe_amount = 15
 
-    write_video(save_path, all_frames[::-1], fps, False,
+    write_video(save_path, all_frames, fps, True,
                 start_frame_dupe_amount, last_frame_dupe_amount)
     return save_path
